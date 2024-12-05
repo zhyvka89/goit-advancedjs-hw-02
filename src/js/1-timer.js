@@ -7,6 +7,7 @@ import "izitoast/dist/css/iziToast.min.css";
 const inputRef = document.querySelector('#datetime-picker');
 const startBtnRef = document.querySelector('button[data-start]');
 startBtnRef.addEventListener('click', startTimer);
+startBtnRef.disabled = true;
 
 const timerRefs = {
   days: document.querySelector('span[data-days]'),
@@ -32,7 +33,6 @@ const options = {
         position: 'topRight',
         color: 'red'
       });
-      startBtnRef.disabled = true;
     } else {
       userSelectedDate = selectedDates[0];
       startBtnRef.disabled = false;
