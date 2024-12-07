@@ -10,6 +10,7 @@ startBtnRef.addEventListener('click', startTimer);
 startBtnRef.disabled = true;
 
 const timerRefs = {
+  timerContainer: document.querySelector('.timer'),
   days: document.querySelector('span[data-days]'),
   hours: document.querySelector('span[data-hours]'),
   minutes: document.querySelector('span[data-minutes]'),
@@ -49,17 +50,19 @@ function startTimer() {
     inputRef.disabled = true;
 
     const diff = new Date(userSelectedDate).getTime() - Date.now();
+
+    if (diff <= 0) {
+      clearInterval(intervalId);
+      inputRef.disabled = false;
+      timerRefs.timerContainer.textContent = 'EXPIRED!'
+    }
+
     let { days, hours, minutes, seconds } = convertMs(diff);
 
     timerRefs.days.textContent = addLeadingZero(days);
     timerRefs.hours.textContent = addLeadingZero(hours);
     timerRefs.minutes.textContent = addLeadingZero(minutes);
     timerRefs.seconds.textContent = addLeadingZero(seconds);
-
-    if (diff <= 0) {
-      clearInterval(intervalId);
-      inputRef.disabled = false;
-    }
 
   }, 1000)
 }
